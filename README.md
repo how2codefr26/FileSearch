@@ -40,7 +40,7 @@ FileSearch 是一款原生 macOS 文件名搜索工具。输入记得的名称�
 
 ## 下载应用，无需编译
 
-**[下载 FileSearch v0.11 · Apple Silicon](https://github.com/how2codefr26/FileSearch/releases/download/v0.11/FileSearch-v0.11-macOS-arm64.zip)** · [SHA-256 校验文件](https://github.com/how2codefr26/FileSearch/releases/download/v0.11/FileSearch-v0.11-macOS-arm64.zip.sha256) · [版本说明与全部文件](https://github.com/how2codefr26/FileSearch/releases/tag/v0.11)
+**[下载 FileSearch v0.11 · Apple Silicon](https://github.com/how2codefr26/FileSearch/raw/refs/tags/v0.11/downloads/FileSearch-v0.11-macOS-arm64.zip)** · [SHA-256 校验文件](https://github.com/how2codefr26/FileSearch/raw/refs/tags/v0.11/downloads/FileSearch-v0.11-macOS-arm64.zip.sha256) · [版本说明与全部文件](https://github.com/how2codefr26/FileSearch/releases/tag/v0.11)
 
 1. 下载并解压 ZIP，把 **FileSearch.app** 拖入“应用程序”。
 2. 双击启动；初次先搜索随附的日常示例，再在“设置 → 添加目录…”选择自己的目录。
@@ -101,7 +101,7 @@ open app/dist/FileSearch.app
 
 应用枚举所选目录中的名称和必要元数据，不读取文件正文进行全文索引；没有网络请求、遥测或云端同步代码。名称、路径和元数据本身也可能敏感，应按个人文件管理本机索引。打开文件时会交给系统默认应用，该应用的行为不由 FileSearch 控制。
 
-本仓库仅包含源码、构建与测试脚本、图标、合成数据生成器和说明。构建缓存、索引数据库、个人设置、测试目录与开发机日志不进入版本库；编译好的应用单独作为 Releases 附件提供。详见[隐私与安全说明](docs/PRIVACY.md)。
+本仓库仅包含源码、构建与测试脚本、图标、合成数据生成器和说明。构建缓存、索引数据库、个人设置、测试目录与开发机日志不进入版本库；编译好的应用放在 downloads 下载目录，并在 Releases 提供直达链接。详见[隐私与安全说明](docs/PRIVACY.md)。
 
 ## 架构概览
 

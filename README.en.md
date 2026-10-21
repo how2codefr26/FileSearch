@@ -27,7 +27,7 @@ Search counts all matching entries in the selected indexed scopes and displays u
 
 ## Download the app
 
-**[Download FileSearch v0.11 for Apple Silicon](https://github.com/how2codefr26/FileSearch/releases/download/v0.11/FileSearch-v0.11-macOS-arm64.zip)** · [SHA-256](https://github.com/how2codefr26/FileSearch/releases/download/v0.11/FileSearch-v0.11-macOS-arm64.zip.sha256) · [Release notes](https://github.com/how2codefr26/FileSearch/releases/tag/v0.11)
+**[Download FileSearch v0.11 for Apple Silicon](https://github.com/how2codefr26/FileSearch/raw/refs/tags/v0.11/downloads/FileSearch-v0.11-macOS-arm64.zip)** · [SHA-256](https://github.com/how2codefr26/FileSearch/raw/refs/tags/v0.11/downloads/FileSearch-v0.11-macOS-arm64.zip.sha256) · [Release notes](https://github.com/how2codefr26/FileSearch/releases/tag/v0.11)
 
 Unzip, drag **FileSearch.app** into Applications, then open it. No Python, Swift, Xcode or compilation is required for the downloaded app. Initially only everyday sample files are indexed. Add your own internal-disk folders from Settings.
 
@@ -57,7 +57,7 @@ Use arrow keys to select, Enter to open, Command–Enter to reveal in Finder, an
 
 The application has no network functionality, accounts, telemetry, cloud search, or AI services. It indexes names and necessary metadata rather than document contents. Default state lives in `~/Library/Application Support/LocalFileSearch/`; that state can still contain sensitive filenames and paths. External applications used to open files have their own behavior.
 
-This repository excludes generated indexes, personal preferences, local test data, logs and build caches. Compiled apps are provided separately as release assets. See [privacy notes](docs/PRIVACY.md).
+This repository excludes generated indexes, personal preferences, local test data, logs and build caches. Compiled apps are available in the downloads directory and linked from the release page. See [privacy notes](docs/PRIVACY.md).
 
 ## Validate
 
