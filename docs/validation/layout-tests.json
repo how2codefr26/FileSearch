@@ -113,15 +113,15 @@
       "passed": true
     },
     {
-      "case": "suffix-input-event-x-name-报价",
+      "case": "suffix-input-event-x-name-计划",
       "passed": true
     },
     {
-      "case": "suffix-input-event-xl-name-报价",
+      "case": "suffix-input-event-xl-name-计划",
       "passed": true
     },
     {
-      "case": "suffix-input-event-xlsx-name-报价",
+      "case": "suffix-input-event-xlsx-name-计划",
       "passed": true
     },
     {
@@ -129,11 +129,55 @@
       "passed": true
     },
     {
-      "case": "suffix-input-event--name-报价",
+      "case": "suffix-input-event--name-计划",
+      "passed": true
+    },
+    {
+      "case": "english-choice-persisted",
+      "passed": true
+    },
+    {
+      "case": "english-window-and-input",
+      "passed": true
+    },
+    {
+      "case": "english-filter-controls",
+      "passed": true
+    },
+    {
+      "case": "language-keeps-search-state",
+      "passed": true
+    },
+    {
+      "case": "language-keeps-window-frames",
+      "passed": true
+    },
+    {
+      "case": "language-keeps-desktop-query",
+      "passed": true
+    },
+    {
+      "case": "english-settings-and-pause",
+      "passed": true
+    },
+    {
+      "case": "english-menus",
+      "passed": true
+    },
+    {
+      "case": "english-context-menu",
+      "passed": true
+    },
+    {
+      "case": "switch-back-to-chinese",
+      "passed": true
+    },
+    {
+      "case": "language-cancels-old-menu",
       "passed": true
     }
   ],
-  "count": 33,
+  "count": 44,
   "note": "Invisible AppKit layout and safe action dispatch checks; open/reveal/copy recorded without external side effects.",
   "visual_screenshot_verified": false
 }

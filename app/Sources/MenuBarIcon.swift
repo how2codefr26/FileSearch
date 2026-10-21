@@ -28,7 +28,7 @@ enum MenuBarIcon {
             return true
         }
         image.isTemplate = true
-        image.accessibilityDescription = "文件搜索"
+        image.accessibilityDescription = tr("文件搜索")
         return image
     }
 }

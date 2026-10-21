@@ -75,23 +75,42 @@ import AppKit
         check("transparency-persisted",abs(Preferences.load(from:owner.prefURL).desktopOpacity-0.4)<0.001)
         settings.glass.state = .off;settings.changeGlass()
         check("solid-mode-disables-slider",!settings.transparency.isEnabled && alpha(desktop)==1 && !Preferences.load(from:owner.prefURL).desktopGlass)
-        for name in ["报价.xlsx","报价.xml","报价.txt"]{try Data().write(to:temp.appendingPathComponent(name))}
+        for name in ["计划.xlsx","计划.xml","计划.txt"]{try Data().write(to:temp.appendingPathComponent(name))}
         let store=try IndexStore(directory:temp.appendingPathComponent("search-state"))
         try store.addRoot(temp.path,sample:true);let scope=try store.roots()[0]
         try store.reconcile(temp.path,root:scope,result:scanDirectory(temp.path,root:scope,excluded:[store.directory.path]),event:0)
         owner.snapshot=try store.writeSnapshot();owner.enabledRoots=[scope.id]
-        main.search.stringValue="报价"
+        main.search.stringValue="计划"
         func typeSuffix(_ value:String,_ expected:Set<String>){
             main.suffix.stringValue=value;main.controlTextDidChange(Notification(name:NSControl.textDidChangeNotification,object:main.suffix))
             let deadline=Date().addingTimeInterval(3)
             while Date()<deadline && Set(main.displayed.map{$0.name}) != expected{RunLoop.current.run(until:Date().addingTimeInterval(0.01))}
             check("suffix-input-event-\(value)-name-\(main.search.stringValue)",Set(main.displayed.map{$0.name})==expected)
         }
-        typeSuffix("x",["报价.xlsx","报价.xml"]);typeSuffix("xl",["报价.xlsx"]);typeSuffix("xlsx",["报价.xlsx"])
-        main.search.stringValue="";typeSuffix("xl",["报价.xlsx"])
-        main.search.stringValue="报价";typeSuffix("",["报价.xlsx","报价.xml","报价.txt"])
+        typeSuffix("x",["计划.xlsx","计划.xml"]);typeSuffix("xl",["计划.xlsx"]);typeSuffix("xlsx",["计划.xlsx"])
+        main.search.stringValue="";typeSuffix("xl",["计划.xlsx"])
+        main.search.stringValue="计划";typeSuffix("",["计划.xlsx","计划.xml","计划.txt"])
+        owner.settings=settings;owner.preferences.desktop=true;settings.paused=true
+        main.search.stringValue="计划";main.suffix.stringValue="xl";main.kind.selectedSegment=1
+        main.sort.selectItem(at:1);desktop.search.stringValue="My notes"
+        let originalMainFrame=main.window.frame,originalDesktopFrame=desktop.window.frame
+        settings.language.selectItem(at:1);settings.changeLanguage()
+        check("english-choice-persisted",Preferences.load(from:owner.prefURL).language == .english)
+        check("english-window-and-input",owner.main.window.title=="FileSearch" && owner.main.search.placeholderString=="File or folder name")
+        check("english-filter-controls",owner.main.kind.label(forSegment:1)=="Files" && owner.main.sort.itemTitles==["Relevance","Name","Modified"])
+        check("language-keeps-search-state",owner.main.search.stringValue=="计划" && owner.main.suffix.stringValue=="xl" && owner.main.kind.selectedSegment==1 && owner.main.sort.indexOfSelectedItem==1)
+        check("language-keeps-window-frames",owner.main.window.frame==originalMainFrame && owner.desktopController!.window.frame==originalDesktopFrame)
+        check("language-keeps-desktop-query",owner.desktopController!.search.stringValue=="My notes" && owner.preferences.desktop)
+        check("english-settings-and-pause",owner.settings!.window.title=="FileSearch Settings" && owner.settings!.details.title=="Show path details in the main window" && owner.settings!.pause.title=="Resume Indexing")
+        check("english-menus",owner.statusItem.menu!.items.first!.title=="Open Search  ⌃⌥Space" && owner.statusItem.button?.toolTip=="FileSearch · File Search")
+        owner.main.displayed=entries;owner.main.table.reloadData();owner.main.table.selectRowIndexes(IndexSet(integer:0),byExtendingSelection:false)
+        let englishMenu=owner.main.makeContextMenu()!
+        check("english-context-menu",englishMenu.items.map{$0.title}==["Open","Copy Path","Show in Finder"])
+        let englishSettings=owner.settings!;englishSettings.language.selectItem(at:0);englishSettings.changeLanguage()
+        check("switch-back-to-chinese",owner.main.search.placeholderString=="文件名或文件夹名" && owner.settings!.window.title=="文件搜索设置" && Preferences.load(from:owner.prefURL).language == .simplifiedChinese)
+        check("language-cancels-old-menu",!owner.main.validateMenuItem(englishMenu.items[0]))
         let output:[String:Any]=["count":checks.count,"checks":checks,"visual_screenshot_verified":false,"note":"Invisible AppKit layout and safe action dispatch checks; open/reveal/copy recorded without external side effects."]
-        try JSONSerialization.data(withJSONObject:output,options:[.prettyPrinted,.sortedKeys]).write(to:URL(fileURLWithPath:"app/results/layout-tests-v08.json"))
+        try JSONSerialization.data(withJSONObject:output,options:[.prettyPrinted,.sortedKeys]).write(to:URL(fileURLWithPath:"app/results/layout-tests-v011.json"))
         print("\(checks.count) layout checks passed")
     }
 }

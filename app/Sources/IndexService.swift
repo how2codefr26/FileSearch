@@ -3,17 +3,30 @@ import CoreServices
 
 final class IndexService:@unchecked Sendable {
     let queue=DispatchQueue(label:"local.filesearch.index",qos:.utility)
-    let directory:URL;let sampleRoot:String
+    let directory:URL;let sampleRoot:String;let sampleRevision:String?
     var onUpdate:(([RootScope],SearchSnapshot?,String,[String])->Void)?
     private var store:IndexStore?;private var roots=[RootScope]();private var snapshot:SearchSnapshot?
     private var stream:FSEventStreamRef?;private var dirty=Set<String>();private var latest:UInt64=0;private var paused=false;private var scheduled:DispatchWorkItem?
     private var failed=[String]();private var stopping=false;private var notifiedHistory=false;private var watching=false
-    init(directory:URL,sampleRoot:String){self.directory=directory;self.sampleRoot=sampleRoot}
+    init(directory:URL,sampleRoot:String,sampleRevision:String?=nil){self.directory=directory;self.sampleRoot=sampleRoot;self.sampleRevision=sampleRevision}
     func emit(_ state:String){let r=roots,s=snapshot,f=failed;let label=(!watching && !roots.isEmpty) ? state+" · 通知不可用，请手动核对":state;DispatchQueue.main.async{[weak self] in self?.onUpdate?(r,s,label,f)}}
     func start(){queue.async{[self] in
         do{
             let s=try IndexStore(directory:directory);store=s
-            if s.meta("initialized")==nil {try s.addRoot(sampleRoot,sample:true);try s.setMeta("initialized","1")}
+            if s.meta("initialized")==nil {try s.addRoot(sampleRoot,sample:true);try s.setMeta("initialized","1");if let sampleRevision{try s.setMeta("sample_revision",sampleRevision)}}
+            // Only generated sample scopes migrate. User-added roots and files are untouched.
+            if let sampleRevision {
+                let samples=try s.roots().filter{$0.sample}
+                if !samples.isEmpty && (s.meta("sample_revision") != sampleRevision || samples.contains{$0.path != sampleRoot}) {
+                    for root in samples{try s.removeRoot(root.id)}
+                    try s.addRoot(sampleRoot,sample:true)
+                    if let root=try s.roots().first(where:{$0.sample && $0.path==sampleRoot}) {
+                        let result=scanDirectory(sampleRoot,root:root,excluded:[directory.path])
+                        try s.reconcile(sampleRoot,root:root,result:result,event:UInt64(s.meta("event_id") ?? "0") ?? 0)
+                    }
+                }
+                try s.setMeta("sample_revision",sampleRevision)
+            }
             roots=try s.roots();latest=UInt64(s.meta("event_id") ?? "0") ?? 0
             var cache=try? SearchSnapshot(url:directory.appendingPathComponent("snapshot.bin"))
             if (cache==nil || cache?.generation != s.generation),s.meta("baseline_complete")=="1"{cache=try s.writeSnapshot()}

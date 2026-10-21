@@ -150,6 +150,30 @@
       "passed": true
     },
     {
+      "case": "legacy-language-default",
+      "passed": true
+    },
+    {
+      "case": "language-persisted",
+      "passed": true
+    },
+    {
+      "case": "unknown-language-preserves-settings",
+      "passed": true
+    },
+    {
+      "case": "english-dynamic-state",
+      "passed": true
+    },
+    {
+      "case": "english-result-format",
+      "passed": true
+    },
+    {
+      "case": "english-file-type",
+      "passed": true
+    },
+    {
       "case": "checkpoint-not-advanced",
       "passed": true
     },
@@ -208,9 +232,45 @@
     {
       "case": "final-stop",
       "passed": true
+    },
+    {
+      "case": "sample-migration-start",
+      "passed": true
+    },
+    {
+      "case": "sample-migration-removes-old-results",
+      "passed": true
+    },
+    {
+      "case": "sample-migration-preserves-user-root",
+      "passed": true
+    },
+    {
+      "case": "sample-migration-preserves-files",
+      "passed": true
+    },
+    {
+      "case": "sample-removal-honored",
+      "passed": true
+    },
+    {
+      "case": "migration-stop",
+      "passed": true
+    },
+    {
+      "case": "sample-removed-restart",
+      "passed": true
+    },
+    {
+      "case": "removed-samples-not-reintroduced",
+      "passed": true
+    },
+    {
+      "case": "migration-final-stop",
+      "passed": true
     }
   ],
-  "count": 52,
-  "last_state": "范围已核对",
-  "live_updates": 15
+  "count": 67,
+  "last_state": "正在核对退出期间的变化… · 通知不可用，请手动核对",
+  "live_updates": 20
 }

@@ -10,7 +10,7 @@ A native macOS filename search utility built with Swift and AppKit. Search index
 
 ## Status
 
-**v0.10 development prototype.** Apple Silicon only; deployment target macOS 14+. Existing testing was performed on M1 / macOS 26.6.2. This is an ad-hoc signed development build, not notarized or ready for general binary distribution. The interface is currently Chinese.
+**v0.11 beta.** Apple Silicon only; deployment target macOS 14+. Existing testing was performed on M1 / macOS 26.6.2. This is an ad-hoc signed development build, not notarized; first launch may be blocked by macOS security checks. The interface supports Simplified Chinese and English, with instant switching in Settings.
 
 ## Features
 
@@ -25,14 +25,24 @@ A native macOS filename search utility built with Swift and AppKit. Search index
 
 Search counts all matching entries in the selected indexed scopes and displays up to the first **500** sorted results. Search uses filename substrings, NFC normalization and ASCII case normalization, not full-text search, regular expressions, wildcards, or full Unicode case folding.
 
-## Build and run
+## Download the app
+
+**[Download FileSearch v0.11 for Apple Silicon](https://github.com/how2codefr26/FileSearch/releases/download/v0.11/FileSearch-v0.11-macOS-arm64.zip)** · [SHA-256](https://github.com/how2codefr26/FileSearch/releases/download/v0.11/FileSearch-v0.11-macOS-arm64.zip.sha256) · [Release notes](https://github.com/how2codefr26/FileSearch/releases/tag/v0.11)
+
+Unzip, drag **FileSearch.app** into Applications, then open it. No Python, Swift, Xcode or compilation is required for the downloaded app. Initially only everyday sample files are indexed. Add your own internal-disk folders from Settings.
+
+The app starts in Simplified Chinese. In **设置 → 界面语言**, select **English**; the change is immediate and remembered. File names and paths are not translated.
+
+**This beta is ad-hoc signed and not notarized.** macOS may block the first launch. Verify the source and follow your system's security prompts and device policy; do not disable system protections. A universally friction-free first launch is not yet validated. See [installation details](docs/INSTALLATION.md).
+
+## Build from source
 
 Requirements: an Apple Silicon Mac, Apple Command Line Tools and Python 3. No third-party build dependencies are downloaded.
 
 ```sh
 xcode-select --install
-git clone https://github.com/how2codefr26/filesearch.git
-cd filesearch
+git clone https://github.com/how2codefr26/FileSearch.git
+cd FileSearch
 python3 app/build.py
 open app/dist/FileSearch.app
 ```
@@ -47,7 +57,7 @@ Use arrow keys to select, Enter to open, Command–Enter to reveal in Finder, an
 
 The application has no network functionality, accounts, telemetry, cloud search, or AI services. It indexes names and necessary metadata rather than document contents. Default state lives in `~/Library/Application Support/LocalFileSearch/`; that state can still contain sensitive filenames and paths. External applications used to open files have their own behavior.
 
-This repository excludes generated indexes, personal preferences, local test data, logs, build caches and precompiled applications. See [privacy notes](docs/PRIVACY.md).
+This repository excludes generated indexes, personal preferences, local test data, logs and build caches. Compiled apps are provided separately as release assets. See [privacy notes](docs/PRIVACY.md).
 
 ## Validate
 
@@ -57,7 +67,7 @@ python3 app/test.py --layout
 
 Tests create isolated fixtures under `app/testdata/`. Inspect `automatic_fsevents_tested` in `app/results/core-tests.json`: if false, automatic filesystem updates were not validated. Invisible AppKit layout tests do not replace visual interaction checks.
 
-Historical v0.7 experiments used one million **synthetic metadata records**, 20 warm searches per case, and an independent SQLite count/top-500 ordering oracle. P95 varied roughly from 51 to 124 ms. These figures exclude initial scans, UI latency and startup, and are not a fresh v0.10 performance acceptance run or a comparison against competing products. See [validation](docs/VALIDATION.md) and [reproduction steps](docs/DEVELOPMENT.md).
+The current benchmark uses one million synthetic records with everyday example names, warm-query measurements, and an independent SQLite count/top-500 ordering oracle. It excludes filesystem enumeration, UI latency, and startup. See [validation](docs/VALIDATION.md) and [reproduction steps](docs/DEVELOPMENT.md).
 
 ## Architecture and limitations
 
@@ -69,6 +79,6 @@ See [architecture](docs/ARCHITECTURE.md), [roadmap](docs/ROADMAP.md), and [chang
 
 ## Feedback and licensing
 
-Report reproducible problems through [Issues](https://github.com/how2codefr26/filesearch/issues), using fictional filenames and redacted diagnostics. Do not upload personal indexes or credentials.
+Report reproducible problems through [Issues](https://github.com/how2codefr26/FileSearch/issues), using fictional filenames and redacted diagnostics. Do not upload personal indexes or credentials.
 
-**No open-source license has been selected.** A public repository is not a blanket license to copy, modify, redistribute or commercially use its contents. Contact the repository owner to confirm authorization before third-party use or contributions. See [licensing](docs/LICENSING.md) and [contribution notes](CONTRIBUTING.md).
+The application package is available for local trial. **No open-source license has been selected for the source.** A public repository is not a blanket license to copy, modify, redistribute or commercially use its contents. Contact the repository owner to confirm authorization before third-party use or contributions. See [licensing](docs/LICENSING.md) and [contribution notes](CONTRIBUTING.md).

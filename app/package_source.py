@@ -4,13 +4,14 @@ import hashlib
 import zipfile
 
 ROOT = Path(__file__).resolve().parent
-NAME = 'FileSearch-v0.10-source'
+NAME = 'FileSearch-v0.11-source'
 files = {str(p.relative_to(ROOT.parent)): p.read_bytes()
          for p in sorted((ROOT / 'Sources').glob('*.swift'))}
 for relative in ('build.py', 'build_icons.py', 'Assets/AppIcon.png', 'test.py', 'package.py', 'package_source.py',
-                 'SOURCE_README.md', 'Tests/CoreTests.swift', 'Tests/LayoutTests.swift'):
+                 'SOURCE_README.md', 'README.en.md', 'Tests/CoreTests.swift', 'Tests/LayoutTests.swift'):
     files['app/' + relative] = (ROOT / relative).read_bytes()
 files['README.md'] = (ROOT / 'SOURCE_README.md').read_bytes()
+files['README-English.md'] = (ROOT / 'README.en.md').read_bytes()
 files['.gitignore'] = b'.DS_Store\napp/build/\napp/dist/\napp/results/\napp/testdata/\napp/release/\n'
 files['SHA256SUMS'] = ''.join(
     hashlib.sha256(data).hexdigest() + '  ' + path + '\n'

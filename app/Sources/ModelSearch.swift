@@ -27,7 +27,10 @@ struct FileEntry:Equatable {
     var id:Int64=0; var root:UInt32; var path:String;var name:String;var norm:String;var kind:UInt32;var modified:Int64;var dev:UInt64;var ino:UInt64
     var identity:String { "\(dev):\(ino)" }
     var parent:String { (path as NSString).deletingLastPathComponent }
-    var kindLabel:String { kind==1 ? "文件夹" : kind==2 ? "软件包" : kind==3 ? "链接":"文件" }
+    var kindLabel:String {
+        if L10n.language == .english{return kind==1 ? "Folder":kind==2 ? "Package":kind==3 ? "Link":"File"}
+        return kind==1 ? "文件夹":kind==2 ? "软件包":kind==3 ? "链接":"文件"
+    }
 }
 struct RootScope { var id:UInt32;var path:String;var sample:Bool;var volume:String }
 struct SearchOptions { var text:String;var suffixes:[String]=[];var kind:Int = -1;var roots:Set<UInt32>=[];var sort:String="relevance";var limit:Int=50 }

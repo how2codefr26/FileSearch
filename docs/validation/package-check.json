@@ -1,15 +1,34 @@
 {
-  "version": "0.10",
-  "bytes": 1711523,
+  "version": "0.11",
+  "sha256": "43f1817e1fa6eb9c853fe98a280943b0043af8d3728d0b362e0aa8aad26a3b94",
+  "bytes": 1726646,
   "embedded_extensions_absent": true,
   "strict_signature_verified": true,
   "executable_hash_matches": true,
   "launch_tested": true,
   "app_icon_verified": true,
   "clean_shutdown": true,
-  "whole_smoke_seconds": 1.42094325,
   "menu_bar_icon_verified": true,
   "bundled_sample_independent": true,
   "query_verified": true,
-  "scope": "Fresh source-copy build and isolated sample launch; not a full performance acceptance run."
+  "language_verified": true,
+  "localizations": [
+    {
+      "language": "zh-Hans",
+      "clean_shutdown": true,
+      "menu_bar_icon_verified": true,
+      "bundled_sample_independent": true,
+      "query_verified": true,
+      "language_verified": true
+    },
+    {
+      "language": "en",
+      "clean_shutdown": true,
+      "menu_bar_icon_verified": true,
+      "bundled_sample_independent": true,
+      "query_verified": true,
+      "language_verified": true
+    }
+  ],
+  "distribution": "Ad-hoc signed beta; not notarized; downloaded first launch on another Mac not validated."
 }

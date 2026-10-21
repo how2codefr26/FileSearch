@@ -6,16 +6,16 @@ def norm(s):
     return unicodedata.normalize('NFC', s).translate(str.maketrans('ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'))
 
 TEMPLATES = [
-    '美国 合同_{:07d}.pdf', '合同_美国_{:07d}.pdf', '仓租账单_{:07d}.xlsx',
-    'invoice_{:07d}.PDF', 'Report_Final_{:07d}.docx', 'photo_{:07d}.jpg',
-    'archive_{:07d}.tar.gz', '.hidden_{:07d}', '报价_{:07d}.xlsx',
+    '周末 笔记_{:07d}.pdf', '笔记_周末_{:07d}.pdf', '每日清单_{:07d}.xlsx',
+    'reading_{:07d}.PDF', 'Weekend_List_{:07d}.docx', 'photo_{:07d}.jpg',
+    'archive_{:07d}.tar.gz', '.hidden_{:07d}', '每周计划_{:07d}.xlsx',
     'notes_AND_OR_{:07d}.txt', '100%_plan*?_{:07d}.txt', 'cafe\u0301_{:07d}.txt',
     '项目_{:07d}', 'Documents_{:07d}', '开发依赖_{:07d}.json', 'ordinary_{:07d}.log',
 ]
-SPECIAL = ['美国 合同','美国 合同.pdf','归档 美国 合同.pdf','合同_美国.pdf',
+SPECIAL = ['周末 笔记','周末 笔记.pdf','归档 周末 笔记.pdf','笔记_周末.pdf',
            'é.txt','e\u0301.txt','e.txt','AND.txt','OR.txt','NOT.txt','a_b%.txt',
-           'literal*?.txt','a\\b.txt','.gitignore','archive.tar.gz','合同.xlsx',
-           '合同.xlsx','美国 合同', 'Case.txt','case.txt']
+           'literal*?.txt','a\\b.txt','.gitignore','archive.tar.gz','笔记.xlsx',
+           '笔记.xlsx','周末 笔记', 'Case.txt','case.txt']
 
 def records(n):
     for i in range(n):

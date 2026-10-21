@@ -2,12 +2,12 @@ from pathlib import Path
 import json, math, sqlite3, subprocess, unicodedata
 
 root=Path(__file__).resolve().parent
-source=root.parent/'technical-validation/data/run-20261020/index-1000000.sqlite'
+source=root.parent/'technical-validation/data/run-v011-neutral/index-1000000.sqlite'
 subprocess.run(['xcrun','swiftc','-O','-parse-as-library','-target','arm64-apple-macosx14.0',
-                '-module-cache-path',str(root/'build/module-cache'),str(root/'Sources/ModelSearch.swift'),
+                '-module-cache-path',str(root/'build/module-cache'),str(root/'Sources/Localization.swift'),str(root/'Sources/ModelSearch.swift'),
                 str(root/'Sources/Store.swift'),str(root/'Tests/QueryBenchmark.swift'),'-o',str(root/'build/query-benchmark')],check=True)
-output=root/'results/query-benchmark-v07.json'
-subprocess.run([str(root/'build/query-benchmark'),str(source),str(root/'testdata/benchmark-v07'),str(output)],check=True)
+output=root/'results/query-benchmark-v011.json'
+subprocess.run([str(root/'build/query-benchmark'),str(source),str(root/'testdata/benchmark-v011'),str(output)],check=True)
 report=json.loads(output.read_text())
 connection=sqlite3.connect(f'file:{source}?mode=ro',uri=True)
 checks=[]
@@ -24,5 +24,5 @@ for case in report['cases']:
     ids=[row[0]+1 for row in connection.execute('SELECT f.id FROM files f JOIN dirs d ON f.dir=d.id WHERE '+where+' ORDER BY '+order+' LIMIT 500',parameters+[phrase]*3)]
     assert count==case['count'] and ids==case['top_ids'],case['query']
     checks.append({'query':case['query'],'count_matches':True,'ordered_top500_matches':True})
-(root/'results/query-oracle-v07.json').write_text(json.dumps({'checks':checks,'passed':True},ensure_ascii=False,indent=2))
+(root/'results/query-oracle-v011.json').write_text(json.dumps({'checks':checks,'passed':True},ensure_ascii=False,indent=2))
 print('Independent SQLite oracle: all counts and ordered top 500 match')

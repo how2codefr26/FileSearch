@@ -6,12 +6,12 @@ import SQLite3
         let workspace=URL(fileURLWithPath:FileManager.default.currentDirectoryPath)
         let testDir=workspace.appendingPathComponent("app/testdata/"+UUID().uuidString);let rootDir=testDir.appendingPathComponent("测试 100%_目录");let state=testDir.appendingPathComponent("state")
         try FileManager.default.createDirectory(at:rootDir,withIntermediateDirectories:true)
-        let files=["报价.xlsx","报价.XLS","报价.xlsm","报价.xml","报价.txt","xlsx无后缀","合同.pdf","大写合同.PDF","合同.tar.gz","合同.gz","合同.txt","归档 美国 合同.pdf","美国 合同.txt","cafe\u{301}.txt","e.txt",".gitignore",".config.json","100%_合同.txt","AND.txt","literal*?.txt"]
+        let files=["计划.xlsx","计划.XLS","计划.xlsm","计划.xml","计划.txt","xlsx无后缀","笔记.pdf","大写笔记.PDF","笔记.tar.gz","笔记.gz","笔记.txt","归档 周末 笔记.pdf","周末 笔记.txt","cafe\u{301}.txt","e.txt",".gitignore",".config.json","100%_笔记.txt","AND.txt","literal*?.txt"]
         for n in files{try Data().write(to:rootDir.appendingPathComponent(n))}
-        try FileManager.default.createDirectory(at:rootDir.appendingPathComponent("合同文件夹"),withIntermediateDirectories:true)
+        try FileManager.default.createDirectory(at:rootDir.appendingPathComponent("笔记文件夹"),withIntermediateDirectories:true)
         try FileManager.default.createDirectory(at:rootDir.appendingPathComponent("Demo.app/Contents"),withIntermediateDirectories:true)
         try Data().write(to:rootDir.appendingPathComponent("Demo.app/Contents/not-indexed.txt"))
-        try FileManager.default.linkItem(at:rootDir.appendingPathComponent("合同.pdf"),to:rootDir.appendingPathComponent("硬链接.pdf"))
+        try FileManager.default.linkItem(at:rootDir.appendingPathComponent("笔记.pdf"),to:rootDir.appendingPathComponent("硬链接.pdf"))
         try FileManager.default.createSymbolicLink(at:rootDir.appendingPathComponent("loop"),withDestinationURL:rootDir)
         let store=try IndexStore(directory:state);try store.addRoot(rootDir.path,sample:false);let root=try store.roots()[0]
         let scan=scanDirectory(root.path,root:root,excluded:[state.path]);try store.reconcile(root.path,root:root,result:scan,event:10);var snapshot=try store.writeSnapshot()
@@ -19,29 +19,29 @@ import SQLite3
         func check(_ label:String,_ condition:Bool){if !condition { FileHandle.standardError.write(Data(("FAILED " + label + "\n").utf8)); exit(1) };checks.append(["case":label,"passed":condition]);print("OK \(label)")}
         func names(_ text:String,_ suffix:String="",_ kind:Int = -1)throws->Set<String>{Set(snapshot.search(SearchOptions(text:text,suffixes:try SuffixFilter(suffix).values,kind:kind,roots:[root.id]))!.entries.map{$0.name})}
         check("empty-query",try names(" ").isEmpty)
-        check("suffix-custom-OR",try names("合同","pdf, .tar.gz")==["合同.pdf","大写合同.PDF","合同.tar.gz","归档 美国 合同.pdf"])
-        check("compound-suffix-boundary",try names("合同","tar.gz")==["合同.tar.gz"])
-        check("suffix-single-last-segment",try names("合同","gz")==["合同.gz","合同.tar.gz"])
-        check("suffix-prefix-x",try names("报价","x")==["报价.xlsx","报价.XLS","报价.xlsm","报价.xml"])
-        check("suffix-prefix-xl",try names("报价","xl")==["报价.xlsx","报价.XLS","报价.xlsm"])
-        check("suffix-prefix-xlsx",try names("报价","xlsx")==["报价.xlsx"])
-        check("suffix-only-no-name",try names("","XL")==["报价.xlsx","报价.XLS","报价.xlsm"])
-        check("suffix-prefix-multiple",try names("报价","xl, t")==["报价.xlsx","报价.XLS","报价.xlsm","报价.txt"])
-        check("suffix-prefix-compound",try names("合同","tar.g")==["合同.tar.gz"])
-        check("suffix-prefix-compound-dot",try names("合同","tar.")==["合同.tar.gz"])
+        check("suffix-custom-OR",try names("笔记","pdf, .tar.gz")==["笔记.pdf","大写笔记.PDF","笔记.tar.gz","归档 周末 笔记.pdf"])
+        check("compound-suffix-boundary",try names("笔记","tar.gz")==["笔记.tar.gz"])
+        check("suffix-single-last-segment",try names("笔记","gz")==["笔记.gz","笔记.tar.gz"])
+        check("suffix-prefix-x",try names("计划","x")==["计划.xlsx","计划.XLS","计划.xlsm","计划.xml"])
+        check("suffix-prefix-xl",try names("计划","xl")==["计划.xlsx","计划.XLS","计划.xlsm"])
+        check("suffix-prefix-xlsx",try names("计划","xlsx")==["计划.xlsx"])
+        check("suffix-only-no-name",try names("","XL")==["计划.xlsx","计划.XLS","计划.xlsm"])
+        check("suffix-prefix-multiple",try names("计划","xl, t")==["计划.xlsx","计划.XLS","计划.xlsm","计划.txt"])
+        check("suffix-prefix-compound",try names("笔记","tar.g")==["笔记.tar.gz"])
+        check("suffix-prefix-compound-dot",try names("笔记","tar.")==["笔记.tar.gz"])
         check("suffix-prefix-no-extension-excluded",try names("无后缀","x").isEmpty)
-        check("suffix-prefix-folder-excluded",try names("合同","p",1).isEmpty)
-        check("multiword-AND",try names("美国 合同")==["美国 合同.txt","归档 美国 合同.pdf"])
+        check("suffix-prefix-folder-excluded",try names("笔记","p",1).isEmpty)
+        check("multiword-AND",try names("周末 笔记")==["周末 笔记.txt","归档 周末 笔记.pdf"])
         check("NFC",try names("café")==["cafe\u{301}.txt"])
         check("hidden-no-extension",try names("gitignore","gitignore").isEmpty)
-        check("suffix-excludes-folder",try names("合同","pdf",1).isEmpty)
-        check("literal-symbol",try names("%")==["100%_合同.txt"])
+        check("suffix-excludes-folder",try names("笔记","pdf",1).isEmpty)
+        check("literal-symbol",try names("%")==["100%_笔记.txt"])
         check("literal-boolean",try names("AND")==["AND.txt"])
         check("literal-wildcards",try names("*?")==["literal*?.txt"])
         check("package-leaf",!scan.entries.contains{$0.path.contains("Demo.app/")})
         check("symlink-leaf",scan.entries.filter{$0.kind==3}.count==1)
-        check("hardlink-two-paths",scan.entries.first{$0.name=="合同.pdf"}!.identity==scan.entries.first{$0.name=="硬链接.pdf"}!.identity)
-        check("exclude-all-roots",snapshot.search(SearchOptions(text:"合同",roots:[]))!.total==0)
+        check("hardlink-two-paths",scan.entries.first{$0.name=="笔记.pdf"}!.identity==scan.entries.first{$0.name=="硬链接.pdf"}!.identity)
+        check("exclude-all-roots",snapshot.search(SearchOptions(text:"笔记",roots:[]))!.total==0)
         for invalid in [".","../pdf","pdf/", "*.pdf", "tar..gz", "pdf\\txt"] {do{_ = try SuffixFilter(invalid);check("invalid-\(invalid)",false)}catch{check("invalid-\(invalid)",true)}}
         check("suffix-normalization",try SuffixFilter(" PDF，.pdf; tar.gz ").values==["pdf","tar.gz"])
         let prefURL=state.appendingPathComponent("prefs.json");let pref=Preferences(details:true,density:.spacious,desktop:true,desktopFrame:"test-frame");try pref.save(to:prefURL);check("preferences-roundtrip",Preferences.load(from:prefURL)==pref)
@@ -54,11 +54,21 @@ import SQLite3
         check("desktop-appearance-roundtrip",Preferences.load(from:prefURL)==custom)
         let clipped=try JSONDecoder().decode(Preferences.self,from:Data(#"{"desktopOpacity":-100}"#.utf8))
         check("desktop-opacity-clamped",clipped.desktopOpacity==0.3)
+        check("legacy-language-default",migrated.language == .simplifiedChinese)
+        custom.language = .english;try custom.save(to:prefURL)
+        check("language-persisted",Preferences.load(from:prefURL).language == .english)
+        let unknownLanguage=try JSONDecoder().decode(Preferences.self,from:Data(#"{"language":"future","details":true}"#.utf8))
+        check("unknown-language-preserves-settings",unknownLanguage.language == .simplifiedChinese && unknownLanguage.details)
+        L10n.language = .english
+        check("english-dynamic-state",L10n.message("范围已核对 · 通知不可用，请手动核对")=="Index up to date · Notifications unavailable; refresh manually")
+        check("english-result-format",trf("%d 项结果 · 已显示 %d 项",12,5)=="12 results · Showing 5")
+        check("english-file-type",snapshot.search(SearchOptions(text:"笔记",suffixes:["pdf"],roots:[root.id]))!.entries.first!.kindLabel=="File")
+        L10n.language = .simplifiedChinese
         check("checkpoint-not-advanced",store.meta("event_id")=="10")
         let cacheURL=state.appendingPathComponent("snapshot.bin");try Data("broken".utf8).write(to:cacheURL)
         do{_ = try SearchSnapshot(url:cacheURL);check("corrupt-cache-rejected",false)}catch{check("corrupt-cache-rejected",true)}
         snapshot=try store.writeSnapshot();check("cache-rebuild-from-sqlite",snapshot.count==scan.entries.count)
-        let gate=CancellationGate();let old=gate.next();_ = gate.next();check("obsolete-query-cancelled",snapshot.search(SearchOptions(text:"合同",roots:[root.id]),gate:gate,token:old)==nil)
+        let gate=CancellationGate();let old=gate.next();_ = gate.next();check("obsolete-query-cancelled",snapshot.search(SearchOptions(text:"笔记",roots:[root.id]),gate:gate,token:old)==nil)
 
         // A real event -> dirty-directory -> SQLite -> packed snapshot -> query loop.
         var latest:SearchSnapshot?;var roots=[RootScope]();var phase="";var updates=0
@@ -80,6 +90,26 @@ import SQLite3
         service=IndexService(directory:testDir.appendingPathComponent("live-state"),sampleRoot:rootDir.path);connect();wait("persisted-restart",{latest != nil})
         if supportsEvents{wait("history-replay-after-exit",{contains("退出期间新增")})}
         stopped=false;service!.shutdown{stopped=true};wait("final-stop",{stopped})
+        let migration=testDir.appendingPathComponent("migration"),previous=migration.appendingPathComponent("OldSamples"),updated=migration.appendingPathComponent("NewSamples"),personal=migration.appendingPathComponent("MyFiles"),migrationState=migration.appendingPathComponent("state")
+        for folder in [previous,updated,personal]{try FileManager.default.createDirectory(at:folder,withIntermediateDirectories:true)}
+        for (folder,name) in [(previous,"Old sample.txt"),(updated,"Weekend notes.txt"),(personal,"My notes.txt")]{try Data("fixture".utf8).write(to:folder.appendingPathComponent(name))}
+        do{
+            let prior=try IndexStore(directory:migrationState)
+            try prior.addRoot(previous.path,sample:true);try prior.addRoot(personal.path,sample:false)
+            for root in try prior.roots(){try prior.reconcile(root.path,root:root,result:scanDirectory(root.path,root:root),event:0)}
+            try prior.setMeta("initialized","1");try prior.setMeta("baseline_complete","1");try prior.setMeta("sample_revision","old");_ = try prior.writeSnapshot()
+        }
+        latest=nil;roots=[]
+        service=IndexService(directory:migrationState,sampleRoot:updated.path,sampleRevision:"general-v1");connect();wait("sample-migration-start",{latest != nil})
+        let migratedNames=Set(latest!.search(SearchOptions(text:"",suffixes:["txt"],roots:Set(roots.map{$0.id})))!.entries.map{$0.name})
+        check("sample-migration-removes-old-results",migratedNames==["Weekend notes.txt","My notes.txt"])
+        check("sample-migration-preserves-user-root",roots.contains{$0.path==personal.path && !$0.sample})
+        check("sample-migration-preserves-files",FileManager.default.fileExists(atPath:personal.appendingPathComponent("My notes.txt").path) && FileManager.default.fileExists(atPath:previous.appendingPathComponent("Old sample.txt").path))
+        service!.removeRoot(roots.first{$0.sample}!.id);wait("sample-removal-honored",{!roots.contains{$0.sample}})
+        stopped=false;service!.shutdown{stopped=true};wait("migration-stop",{stopped})
+        latest=nil;service=IndexService(directory:migrationState,sampleRoot:updated.path,sampleRevision:"general-v1");connect();wait("sample-removed-restart",{latest != nil})
+        check("removed-samples-not-reintroduced",!roots.contains{$0.sample})
+        stopped=false;service!.shutdown{stopped=true};wait("migration-final-stop",{stopped})
         let result:[String:Any]=["checks":checks,"count":checks.count,"automatic_fsevents_tested":supportsEvents,"fixture":rootDir.path,"live_updates":updates,"last_state":phase]
         try JSONSerialization.data(withJSONObject:result,options:[.prettyPrinted,.sortedKeys]).write(to:workspace.appendingPathComponent("app/results/core-tests.json"))
         print("\(checks.count) checks passed; FSEvents=\(supportsEvents)")
