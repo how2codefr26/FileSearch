@@ -1,0 +1,15 @@
+{
+  "version": "0.10",
+  "bytes": 1711523,
+  "embedded_extensions_absent": true,
+  "strict_signature_verified": true,
+  "executable_hash_matches": true,
+  "launch_tested": true,
+  "app_icon_verified": true,
+  "clean_shutdown": true,
+  "whole_smoke_seconds": 1.42094325,
+  "menu_bar_icon_verified": true,
+  "bundled_sample_independent": true,
+  "query_verified": true,
+  "scope": "Fresh source-copy build and isolated sample launch; not a full performance acceptance run."
+}

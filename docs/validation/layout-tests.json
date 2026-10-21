@@ -1,0 +1,139 @@
+{
+  "checks": [
+    {
+      "case": "mac-system-font",
+      "passed": true
+    },
+    {
+      "case": "desktop-only-search-and-results",
+      "passed": true
+    },
+    {
+      "case": "desktop-no-title-buttons",
+      "passed": true
+    },
+    {
+      "case": "desktop-editable-search",
+      "passed": true
+    },
+    {
+      "case": "high-transparency-keeps-text-opaque",
+      "passed": true
+    },
+    {
+      "case": "details-main-only",
+      "passed": true
+    },
+    {
+      "case": "desktop-results-full-width",
+      "passed": true
+    },
+    {
+      "case": "desktop-minimum-layout",
+      "passed": true
+    },
+    {
+      "case": "glass-off-is-solid",
+      "passed": true
+    },
+    {
+      "case": "solid-theme-follows-appearance",
+      "passed": true
+    },
+    {
+      "case": "reduced-transparency-solid-fallback",
+      "passed": true
+    },
+    {
+      "case": "glass-on-clears-solid-layer",
+      "passed": true
+    },
+    {
+      "case": "desktop-icon-tight-inset",
+      "passed": true
+    },
+    {
+      "case": "single-click-selects-only",
+      "passed": true
+    },
+    {
+      "case": "selection-has-no-open-side-effect",
+      "passed": true
+    },
+    {
+      "case": "right-click-selects-target-row",
+      "passed": true
+    },
+    {
+      "case": "context-actions-present",
+      "passed": true
+    },
+    {
+      "case": "context-action-target-correct",
+      "passed": true
+    },
+    {
+      "case": "stale-menu-cannot-act",
+      "passed": true
+    },
+    {
+      "case": "empty-area-has-no-context-menu",
+      "passed": true
+    },
+    {
+      "case": "empty-double-click-cannot-open",
+      "passed": true
+    },
+    {
+      "case": "replaced-file-not-opened",
+      "passed": true
+    },
+    {
+      "case": "main-no-action-buttons",
+      "passed": true
+    },
+    {
+      "case": "settings-scrollable",
+      "passed": true
+    },
+    {
+      "case": "glass-controls-enabled",
+      "passed": true
+    },
+    {
+      "case": "background-only-live-update",
+      "passed": true
+    },
+    {
+      "case": "transparency-persisted",
+      "passed": true
+    },
+    {
+      "case": "solid-mode-disables-slider",
+      "passed": true
+    },
+    {
+      "case": "suffix-input-event-x-name-报价",
+      "passed": true
+    },
+    {
+      "case": "suffix-input-event-xl-name-报价",
+      "passed": true
+    },
+    {
+      "case": "suffix-input-event-xlsx-name-报价",
+      "passed": true
+    },
+    {
+      "case": "suffix-input-event-xl-name-",
+      "passed": true
+    },
+    {
+      "case": "suffix-input-event--name-报价",
+      "passed": true
+    }
+  ],
+  "count": 33,
+  "note": "Invisible AppKit layout and safe action dispatch checks; open/reveal/copy recorded without external side effects.",
+  "visual_screenshot_verified": false
+}

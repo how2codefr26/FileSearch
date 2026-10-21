@@ -1,0 +1,50 @@
+{
+  "checks": [
+    {
+      "query": "合同",
+      "count_matches": true,
+      "ordered_top500_matches": true
+    },
+    {
+      "query": "美国 合同",
+      "count_matches": true,
+      "ordered_top500_matches": true
+    },
+    {
+      "query": "archive",
+      "count_matches": true,
+      "ordered_top500_matches": true
+    },
+    {
+      "query": "1",
+      "count_matches": true,
+      "ordered_top500_matches": true
+    },
+    {
+      "query": "not-found-qx",
+      "count_matches": true,
+      "ordered_top500_matches": true
+    },
+    {
+      "query": "café",
+      "count_matches": true,
+      "ordered_top500_matches": true
+    },
+    {
+      "query": "",
+      "count_matches": true,
+      "ordered_top500_matches": true
+    },
+    {
+      "query": "",
+      "count_matches": true,
+      "ordered_top500_matches": true
+    },
+    {
+      "query": "archive",
+      "count_matches": true,
+      "ordered_top500_matches": true
+    }
+  ],
+  "passed": true
+}

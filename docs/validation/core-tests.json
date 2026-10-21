@@ -1,0 +1,216 @@
+{
+  "automatic_fsevents_tested": true,
+  "checks": [
+    {
+      "case": "empty-query",
+      "passed": true
+    },
+    {
+      "case": "suffix-custom-OR",
+      "passed": true
+    },
+    {
+      "case": "compound-suffix-boundary",
+      "passed": true
+    },
+    {
+      "case": "suffix-single-last-segment",
+      "passed": true
+    },
+    {
+      "case": "suffix-prefix-x",
+      "passed": true
+    },
+    {
+      "case": "suffix-prefix-xl",
+      "passed": true
+    },
+    {
+      "case": "suffix-prefix-xlsx",
+      "passed": true
+    },
+    {
+      "case": "suffix-only-no-name",
+      "passed": true
+    },
+    {
+      "case": "suffix-prefix-multiple",
+      "passed": true
+    },
+    {
+      "case": "suffix-prefix-compound",
+      "passed": true
+    },
+    {
+      "case": "suffix-prefix-compound-dot",
+      "passed": true
+    },
+    {
+      "case": "suffix-prefix-no-extension-excluded",
+      "passed": true
+    },
+    {
+      "case": "suffix-prefix-folder-excluded",
+      "passed": true
+    },
+    {
+      "case": "multiword-AND",
+      "passed": true
+    },
+    {
+      "case": "NFC",
+      "passed": true
+    },
+    {
+      "case": "hidden-no-extension",
+      "passed": true
+    },
+    {
+      "case": "suffix-excludes-folder",
+      "passed": true
+    },
+    {
+      "case": "literal-symbol",
+      "passed": true
+    },
+    {
+      "case": "literal-boolean",
+      "passed": true
+    },
+    {
+      "case": "literal-wildcards",
+      "passed": true
+    },
+    {
+      "case": "package-leaf",
+      "passed": true
+    },
+    {
+      "case": "symlink-leaf",
+      "passed": true
+    },
+    {
+      "case": "hardlink-two-paths",
+      "passed": true
+    },
+    {
+      "case": "exclude-all-roots",
+      "passed": true
+    },
+    {
+      "case": "invalid-.",
+      "passed": true
+    },
+    {
+      "case": "invalid-../pdf",
+      "passed": true
+    },
+    {
+      "case": "invalid-pdf/",
+      "passed": true
+    },
+    {
+      "case": "invalid-*.pdf",
+      "passed": true
+    },
+    {
+      "case": "invalid-tar..gz",
+      "passed": true
+    },
+    {
+      "case": "invalid-pdf\\txt",
+      "passed": true
+    },
+    {
+      "case": "suffix-normalization",
+      "passed": true
+    },
+    {
+      "case": "preferences-roundtrip",
+      "passed": true
+    },
+    {
+      "case": "default-layout",
+      "passed": true
+    },
+    {
+      "case": "legacy-preferences-preserved",
+      "passed": true
+    },
+    {
+      "case": "legacy-glass-defaults",
+      "passed": true
+    },
+    {
+      "case": "desktop-appearance-roundtrip",
+      "passed": true
+    },
+    {
+      "case": "desktop-opacity-clamped",
+      "passed": true
+    },
+    {
+      "case": "checkpoint-not-advanced",
+      "passed": true
+    },
+    {
+      "case": "corrupt-cache-rejected",
+      "passed": true
+    },
+    {
+      "case": "cache-rebuild-from-sqlite",
+      "passed": true
+    },
+    {
+      "case": "obsolete-query-cancelled",
+      "passed": true
+    },
+    {
+      "case": "live-initial",
+      "passed": true
+    },
+    {
+      "case": "live-create",
+      "passed": true
+    },
+    {
+      "case": "live-rename",
+      "passed": true
+    },
+    {
+      "case": "live-delete",
+      "passed": true
+    },
+    {
+      "case": "pause-status",
+      "passed": true
+    },
+    {
+      "case": "paused-no-new-rows",
+      "passed": true
+    },
+    {
+      "case": "resume-catches-up",
+      "passed": true
+    },
+    {
+      "case": "service-stops",
+      "passed": true
+    },
+    {
+      "case": "persisted-restart",
+      "passed": true
+    },
+    {
+      "case": "history-replay-after-exit",
+      "passed": true
+    },
+    {
+      "case": "final-stop",
+      "passed": true
+    }
+  ],
+  "count": 52,
+  "last_state": "范围已核对",
+  "live_updates": 15
+}
