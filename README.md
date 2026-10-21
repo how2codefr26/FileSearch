@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="app/Assets/AppIcon.png" width="128" alt="FileSearch 应用图标">
+  <img src="docs/assets/app-icon.png" width="128" alt="FileSearch 应用图标">
 </p>
 
 # FileSearch · 文件搜索

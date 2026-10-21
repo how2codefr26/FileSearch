@@ -1,4 +1,4 @@
-<p align="center"><img src="app/Assets/AppIcon.png" width="128" alt="FileSearch icon"></p>
+<p align="center"><img src="docs/assets/app-icon.png" width="128" alt="FileSearch icon"></p>
 
 # FileSearch
 
